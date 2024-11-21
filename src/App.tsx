@@ -1,9 +1,12 @@
-import { useState } from "react";
-import "./Index.css";
+import "../public/css/style.bundle.css";
+import Home from "./pages/dashboard/Home";
 
 function App() {
-  const [count, setCount] = useState(0);
-  return <>This is my first React in Typescript</>;
+  return (
+    <>
+      <Home />
+    </>
+  );
 }
 
 export default App;
