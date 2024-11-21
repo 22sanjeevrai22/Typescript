@@ -1,5 +1,7 @@
 // import searchsvg from "../../../public/media/icons/duotune/abstract/abs001.svg";
+import boomapp from "../../assets/icons/boomapp.svg";
 import searchsvg from "../../assets/icons/search.svg";
+import notification from "../../assets/icons/notification.svg";
 const Header = () => {
   return (
     <>
@@ -51,28 +53,7 @@ const Header = () => {
                           <div className="symbol symbol-40px me-4">
                             <span className="symbol-label bg-light">
                               <span className="svg-icon svg-icon-2 svg-icon-primary">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M2 16C2 16.6 2.4 17 3 17H21C21.6 17 22 16.6 22 16V15H2V16Z"
-                                    fill="currentColor"
-                                  />
-                                  <path
-                                    opacity="0.3"
-                                    d="M21 3H3C2.4 3 2 3.4 2 4V15H22V4C22 3.4 21.6 3 21 3Z"
-                                    fill="currentColor"
-                                  />
-                                  <path
-                                    opacity="0.3"
-                                    d="M15 17H9V20H15V17Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
+                                <img src={boomapp} alt="" />
                               </span>
                             </span>
                           </div>
@@ -94,6 +75,8 @@ const Header = () => {
                 </div>
               </div>
             </div>
+
+            {/* Notification Icon */}
             <div className="d-flex align-items-center py-3 py-lg-0">
               <div className="me-3">
                 <a
@@ -101,23 +84,7 @@ const Header = () => {
                   className="btn btn-icon btn-custom btn-active-color-primary position-relative"
                 >
                   <span className="svg-icon svg-icon-1 svg-icon-white">
-                    <svg
-                      width={24}
-                      height={24}
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        opacity="0.3"
-                        d="M12 22C13.6569 22 15 20.6569 15 19C15 17.3431 13.6569 16 12 16C10.3431 16 9 17.3431 9 19C9 20.6569 10.3431 22 12 22Z"
-                        fill="currentColor"
-                      />
-                      <path
-                        d="M19 15V18C19 18.6 18.6 19 18 19H6C5.4 19 5 18.6 5 18V15C6.1 15 7 14.1 7 13V10C7 7.6 8.7 5.6 11 5.1V3C11 2.4 11.4 2 12 2C12.6 2 13 2.4 13 3V5.1C15.3 5.6 17 7.6 17 10V13C17 14.1 17.9 15 19 15ZM11 10C11 9.4 11.4 9 12 9C12.6 9 13 8.6 13 8C13 7.4 12.6 7 12 7C10.3 7 9 8.3 9 10C9 10.6 9.4 11 10 11C10.6 11 11 10.6 11 10Z"
-                        fill="currentColor"
-                      />
-                    </svg>
+                    <img src={notification} alt="" />
                   </span>
                   <span className="bullet bullet-dot bg-success h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink" />
                 </a>
