@@ -1,5 +1,5 @@
-import logo from "../../assets/icons/logo.png";
-import windows from "../../assets/icons/windows.svg";
+import logo from "../../../assets/icons/logo.png";
+import windows from "../../../assets/icons/windows.svg";
 
 const Sidebar = () => {
   return (
