@@ -1,10 +1,10 @@
 import "../public/css/style.bundle.css";
-import Home from "./pages/dashboard/Home";
+import Routes from "./Routes";
 
 function App() {
   return (
     <>
-      <Home />
+      <Routes />
     </>
   );
 }

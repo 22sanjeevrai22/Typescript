@@ -4,10 +4,7 @@ import Header from "../../components/dashboard/Header";
 const Home = () => {
   return (
     <div className="d-flex flex-column flex-row-fluid" id="kt_wrapper">
-      <Header
-        title="Infinity Dashboard"
-        subTitle="Welcome to Infinity Dashboard"
-      />
+      <Header title="Students" subTitle="Student List" />
       <div
         className="content d-flex flex-column flex-column-fluid"
         id="kt_content"

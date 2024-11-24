@@ -1,4 +1,4 @@
-import boomapp from "../../../assets/icons/boomapp.svg";
+import boomapp from "../../../../assets/icons/boomapp.svg";
 
 const Dropdown = () => {
   return (
