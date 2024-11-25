@@ -1,27 +1,35 @@
 import logo from "../../assets/icons/logo.png";
 import Icon from "../icons/Icon";
 import MenuDropdown from "./dropdown/sidebar/MenuDropdown";
-import Settings from "./settings/Settings";
 import dashboardMenu from "../../constants/dashboardMenu";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { useState } from "react";
+import SettingDropdown from "./dropdown/sidebar/SettingDropdown";
+import { HOME_ROUTE } from "../../constants/routes";
 
 type IsActiveProp = {
   isActive: boolean;
 };
 
 const Sidebar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleActiveLink = ({ isActive }: IsActiveProp) => {
     return ["menu-item py-2", isActive ? "here" : ""].join(" ");
   };
+  function handleToggle() {
+    console.log("settings clicked");
+    setIsOpen((prev) => !prev);
+  }
   return (
     <div id="kt_aside" className="aside">
       <div
         className="aside-logo flex-column-auto pt-10 pt-lg-20"
         id="kt_aside_logo"
       >
-        <a href="../../demo9/dist/index.html">
+        <Link to={HOME_ROUTE}>
           <img src={logo} alt="Logo" className="h-90px" />
-        </a>
+        </Link>
       </div>
       <div
         className="aside-menu flex-column-fluid pt-0 pb-7 py-lg-10"
@@ -52,7 +60,29 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-      <Settings />
+      {/* Setting Starts Here  */}
+      <div
+        className="aside-footer flex-column-auto pb-5 pb-lg-10"
+        id="kt_aside_footer"
+      >
+        <div
+          className="d-flex flex-center w-100 scroll-px"
+          title="Quick actions"
+        >
+          <button
+            type="button"
+            onClick={handleToggle}
+            className="btn btn-custom"
+            style={{
+              position: "relative",
+            }}
+          >
+            <Icon name="settings" className={"svg-icon-2x m-0"} />
+          </button>
+
+          {isOpen && <SettingDropdown />}
+        </div>
+      </div>
     </div>
   );
 };

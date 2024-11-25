@@ -1,12 +1,12 @@
 import { EMPLOYEES_ROUTE, HOME_ROUTE, STUDENTS_ROUTE } from "./routes";
 
+type Menu = MenuItem[];
+
 type MenuItem = {
   route: string;
   name: string;
   label: string;
 };
-
-type Menu = MenuItem[];
 
 const dashboardMenu: Menu = [
   {
