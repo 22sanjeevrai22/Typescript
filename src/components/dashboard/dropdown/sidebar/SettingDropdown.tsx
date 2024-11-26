@@ -79,9 +79,23 @@ const menuItems: MenuItem[] = [
     ],
   },
 ];
+
 const SettingDropdown = () => {
-  // Track the index of the menu with a child to show its submenu
-  const [openMenu, setOpenMenu] = useState<string | null>(null);
+  // State to track open menus at each level
+  const [openMenu, setOpenMenu] = useState<string[]>([]);
+
+  const toggleMenu = (currentIndex: string) => {
+    setOpenMenu(
+      (prev) =>
+        prev.includes(currentIndex)
+          ? prev.filter((index) => index !== currentIndex) // Close the menu
+          : [...prev, currentIndex] // Open the menu
+    );
+  };
+
+  const notToggleMenu = (currentIndex: string) => {
+    setOpenMenu((prev) => prev.filter((index) => index !== currentIndex));
+  };
 
   const renderMenu = (menus: MenuItem[], parentIndex: string = "") => {
     return (
@@ -96,9 +110,14 @@ const SettingDropdown = () => {
               className="menu-item px-3"
               key={currentIndex}
               style={{ position: "relative" }}
-              onClick={() =>
-                setOpenMenu(openMenu === currentIndex ? null : currentIndex)
-              } // Toggle submenu
+              onMouseEnter={(e) => {
+                e.stopPropagation(); // Prevent event bubbling
+                toggleMenu(currentIndex);
+              }}
+              onMouseLeave={(e) => {
+                e.stopPropagation();
+                notToggleMenu(currentIndex);
+              }}
             >
               <a href="#" className="menu-link px-3">
                 <span className="menu-title">{menu.title}</span>
@@ -106,10 +125,15 @@ const SettingDropdown = () => {
               </a>
 
               {/* Show child menu if this menu is clicked */}
-              {menu.submenu && openMenu === currentIndex && (
+              {menu.submenu && openMenu.includes(currentIndex) && (
                 <div
                   className="menu-submenu-card p-3 border rounded mt-2 bg-white shadow-lg"
-                  style={{ position: "absolute", left: "100%", top: "0" }}
+                  style={{
+                    position: "absolute",
+                    left: "100%",
+                    bottom: "0",
+                    width: "14rem",
+                  }}
                 >
                   {renderMenu(menu.submenu, currentIndex)}{" "}
                   {/* Recursive rendering */}
