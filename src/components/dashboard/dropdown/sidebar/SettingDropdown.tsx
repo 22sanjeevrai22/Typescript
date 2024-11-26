@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-interface MenuItem {
+type MenuItem = {
   title: string;
-  route?: string;
   submenu?: MenuItem[];
-}
+  route?: string;
+};
 
-const menuItems: MenuItem[] = [
+const menuItems = [
   {
     title: "Student Services",
     submenu: [
@@ -131,8 +131,9 @@ const SettingDropdown = () => {
                   style={{
                     position: "absolute",
                     left: "100%",
-                    bottom: "0",
+                    bottom: "-1rem",
                     width: "14rem",
+                    transition: "opacity 0.2s ease-in-out",
                   }}
                 >
                   {renderMenu(menu.submenu, currentIndex)}{" "}

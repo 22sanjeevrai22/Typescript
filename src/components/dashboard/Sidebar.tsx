@@ -1,10 +1,10 @@
+import { useState, useEffect, useRef } from "react";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/icons/logo.png";
 import Icon from "../icons/Icon";
 import MenuDropdown from "./dropdown/sidebar/MenuDropdown";
-import dashboardMenu from "../../constants/dashboardMenu";
-import { Link, NavLink } from "react-router-dom";
-import { useState } from "react";
 import SettingDropdown from "./dropdown/sidebar/SettingDropdown";
+import dashboardMenu from "../../constants/dashboardMenu";
 import { HOME_ROUTE } from "../../constants/routes";
 
 type IsActiveProp = {
@@ -12,15 +12,38 @@ type IsActiveProp = {
 };
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // Track dropdown visibility
+  const dropdownRef = useRef<HTMLDivElement>(null); // Ref for the dropdown
 
   const handleActiveLink = ({ isActive }: IsActiveProp) => {
     return ["menu-item py-2", isActive ? "here" : ""].join(" ");
   };
-  function handleToggle() {
-    console.log("settings clicked");
-    setIsOpen((prev) => !prev);
-  }
+
+  const handleEnterToggle = () => {
+    setIsOpen(true); // Open the dropdown
+  };
+
+  const handleLeaveToggle = () => {
+    setIsOpen(false); // Close the dropdown
+  };
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
+      setIsOpen(false); // Close if clicking outside the dropdown
+    }
+  };
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div id="kt_aside" className="aside">
       <div
@@ -60,10 +83,11 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-      {/* Setting Starts Here  */}
+      {/* Setting Dropdown */}
       <div
         className="aside-footer flex-column-auto pb-5 pb-lg-10"
         id="kt_aside_footer"
+        ref={dropdownRef} // Attach the ref to the container
       >
         <div
           className="d-flex flex-center w-100 scroll-px"
@@ -71,7 +95,7 @@ const Sidebar = () => {
         >
           <button
             type="button"
-            onClick={handleToggle}
+            onClick={handleEnterToggle}
             className="btn btn-custom"
             style={{
               position: "relative",
@@ -80,7 +104,14 @@ const Sidebar = () => {
             <Icon name="settings" className={"svg-icon-2x m-0"} />
           </button>
 
-          {isOpen && <SettingDropdown />}
+          {isOpen && (
+            <div
+              onMouseEnter={handleEnterToggle} // Keep open on hover
+              onMouseLeave={handleLeaveToggle} // Close on leave
+            >
+              <SettingDropdown />
+            </div>
+          )}
         </div>
       </div>
     </div>
