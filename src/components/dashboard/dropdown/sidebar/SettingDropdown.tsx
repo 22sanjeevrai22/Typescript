@@ -115,7 +115,6 @@ const SettingDropdown = () => {
                 toggleMenu(currentIndex);
               }}
               onMouseLeave={(e) => {
-                e.stopPropagation();
                 notToggleMenu(currentIndex);
               }}
             >

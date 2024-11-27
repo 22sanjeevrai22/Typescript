@@ -19,12 +19,8 @@ const Sidebar = () => {
     return ["menu-item py-2", isActive ? "here" : ""].join(" ");
   };
 
-  const handleEnterToggle = () => {
-    setIsOpen(true); // Open the dropdown
-  };
-
-  const handleLeaveToggle = () => {
-    setIsOpen(false); // Close the dropdown
+  const handleToggle = () => {
+    setIsOpen((prev) => !prev); // Toggle the dropdown
   };
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -95,7 +91,7 @@ const Sidebar = () => {
         >
           <button
             type="button"
-            onClick={handleEnterToggle}
+            onClick={handleToggle}
             className="btn btn-custom"
             style={{
               position: "relative",
@@ -106,8 +102,8 @@ const Sidebar = () => {
 
           {isOpen && (
             <div
-              onMouseEnter={handleEnterToggle} // Keep open on hover
-              onMouseLeave={handleLeaveToggle} // Close on leave
+              onMouseEnter={() => setIsOpen(true)}
+              onMouseLeave={() => setIsOpen(false)}
             >
               <SettingDropdown />
             </div>
