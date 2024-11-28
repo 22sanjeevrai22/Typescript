@@ -1,8 +1,7 @@
-import { useState } from "react";
 import Icon from "../../icons/Icon";
 import { useForm } from "react-hook-form";
-import { EMAIL_REGEX } from "../../../constants/regex";
 import { login } from "../../../api/auth";
+import { useState } from "react";
 
 type LoginFormData = {
   email: string;
@@ -11,7 +10,7 @@ type LoginFormData = {
 
 const LoginForm = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [password, setPassword] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -25,10 +24,6 @@ const LoginForm = () => {
 
   const handleEyeVisiblity = () => {
     setIsVisible((prev) => !prev);
-  };
-
-  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
   };
 
   return (
@@ -50,12 +45,12 @@ const LoginForm = () => {
               type="text"
               id="email"
               placeholder="Email"
-              autoComplete="off"
+              autoComplete="none"
               className="form-control bg-transparent"
               {...register("email", {
                 required: "Email address is required",
                 // pattern: {
-                //   value: EMAIL_REGEX,
+                //   value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
                 //   message: "Invalid email address",
                 // },
               })}
@@ -66,12 +61,12 @@ const LoginForm = () => {
           </div>
 
           <div className="fv-row mb-3">
-            <div className=" position-relative">
+            <div className="position-relative">
               <input
                 type={isVisible ? "text" : "password"}
                 id="password"
                 placeholder="Password"
-                autoComplete="off"
+                autoComplete="none"
                 className="form-control bg-transparent"
                 {...register("password", {
                   required: "Password is required",
@@ -80,37 +75,23 @@ const LoginForm = () => {
                     message:
                       "Password length must be greater than eight characters",
                   },
-                  // pattern: {
-                  //   value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,}$/,
-                  //   message:
-                  //     "Password must contain at least one letter and one number",
-                  // },
                 })}
-                value={password}
-                onChange={handlePassword}
               />
-              {password && (
-                <span
-                  style={{
-                    position: "absolute",
-                    top: "50%",
-                    right: "3%",
-                    transform: "translate(-50%, -50%)",
-                  }}
-                >
-                  <span
-                    onClick={handleEyeVisiblity}
-                    style={{
-                      cursor: "pointer",
-                    }}
-                  >
-                    <Icon
-                      name={isVisible ? "eye" : "eyeOff"}
-                      className={"svg-icon m-0"}
-                    />
-                  </span>
-                </span>
-              )}
+              <span
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  right: "3%",
+                  transform: "translate(-50%, -50%)",
+                  cursor: "pointer",
+                }}
+                onClick={handleEyeVisiblity}
+              >
+                <Icon
+                  name={isVisible ? "eye" : "eyeOff"}
+                  className="svg-icon m-0"
+                />
+              </span>
             </div>
             <div className="fv-plugins-message-container mt-2 text-danger">
               {errors.password?.message}

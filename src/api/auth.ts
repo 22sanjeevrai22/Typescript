@@ -2,19 +2,20 @@ import axios from "axios";
 import config from "../config/config";
 
 type User = {
-  username: string;
+  email: string;
   password: string;
 };
 
-const login = async ({ username, password }: User) => {
+const login = async ({ email, password }: User) => {
+  const username = email;
   try {
     const userResponse = await axios.post("https://dummyjson.com/user/login", {
       username,
       password,
     });
     console.log("User in Auth.ts", userResponse);
-    localStorage.setItem("authToken", userResponse.data?.token);
-    localStorage.setItem("user", userResponse.data?.user);
+    localStorage.setItem("authToken", userResponse.data?.refreshToken);
+    localStorage.setItem("user", userResponse.data?.username);
 
     return userResponse;
   } catch (error) {
