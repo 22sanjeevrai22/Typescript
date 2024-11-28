@@ -4,8 +4,8 @@ import logo from "../../assets/icons/logo.png";
 import Icon from "../icons/Icon";
 import MenuDropdown from "./dropdown/sidebar/MenuDropdown";
 import SettingDropdown from "./dropdown/sidebar/SettingDropdown";
-import dashboardMenu from "../../constants/dashboardMenu";
 import { HOME_ROUTE } from "../../constants/routes";
+import { sidebarMenu } from "../../constants/dashboardMenu";
 
 type IsActiveProp = {
   isActive: boolean;
@@ -62,7 +62,7 @@ const Sidebar = () => {
             id="kt_aside_menu"
             className="menu menu-column menu-title-gray-600 menu-state-primary menu-state-icon-primary menu-state-bullet-primary menu-icon-gray-400 menu-arrow-gray-400 fw-semibold fs-6 my-auto"
           >
-            {dashboardMenu.map((menu) => (
+            {sidebarMenu.map((menu) => (
               <NavLink
                 to={menu.route}
                 key={menu.route}
