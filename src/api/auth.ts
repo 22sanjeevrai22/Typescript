@@ -7,15 +7,22 @@ type User = {
 };
 
 const login = async ({ email, password }: User) => {
-  const username = email;
   try {
-    const userResponse = await axios.post("https://dummyjson.com/user/login", {
-      username,
-      password,
-    });
-    console.log("User in Auth.ts", userResponse);
-    localStorage.setItem("authToken", userResponse.data?.refreshToken);
-    localStorage.setItem("user", userResponse.data?.username);
+    const userResponse = await axios.post(
+      `${config.baseApiUrl}/api/login`,
+      {
+        email,
+        password,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log("Token in Auth.ts", userResponse.data);
+    localStorage.setItem("authToken", userResponse.data?.token);
 
     return userResponse;
   } catch (error) {

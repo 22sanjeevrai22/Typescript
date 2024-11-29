@@ -108,7 +108,9 @@ const LoginForm = () => {
               id="kt_sign_in_submit"
               className="btn btn-primary"
             >
-              <span className="indicator-label">Sign In</span>
+              <span className="indicator-label" style={{ cursor: "pointer" }}>
+                Sign In
+              </span>
               <span className="indicator-progress">
                 Please wait...
                 <span className="spinner-border spinner-border-sm align-middle ms-2" />
