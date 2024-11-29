@@ -1,25 +1,47 @@
 import Icon from "../../icons/Icon";
 import { useForm } from "react-hook-form";
 import { login } from "../../../api/auth";
-import { useState } from "react";
+import { createContext, useState } from "react";
 
 type LoginFormData = {
   email: string;
   password: string;
 };
 
+type LoginContext = {
+  user: string;
+  setUser: (user: string) => void;
+};
+
 const LoginForm = () => {
   const [isVisible, setIsVisible] = useState(false);
-
+  const [loading, setLoading] = useState(false);
+  const [password, setPassword] = useState("");
+  const [user, setUser] = useState<string | null>("");
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormData>();
 
-  const submitLoginForm = (data: LoginFormData) => {
-    console.log("data in LoginForm", data);
-    login(data);
+  export const userContext = createContext<LoginContext | null>(null);
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const submitLoginForm = async (data: LoginFormData) => {
+    setLoading(true);
+
+    try {
+      console.log("data in LoginForm", data);
+      const response = await login(data);
+      setUser(response);
+    } catch (error) {
+      console.error("The error in LoginForm is:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleEyeVisiblity = () => {
@@ -76,22 +98,26 @@ const LoginForm = () => {
                       "Password length must be greater than eight characters",
                   },
                 })}
+                value={password}
+                onChange={handlePasswordChange}
               />
-              <span
-                style={{
-                  position: "absolute",
-                  top: "50%",
-                  right: "3%",
-                  transform: "translate(-50%, -50%)",
-                  cursor: "pointer",
-                }}
-                onClick={handleEyeVisiblity}
-              >
-                <Icon
-                  name={isVisible ? "eye" : "eyeOff"}
-                  className="svg-icon m-0"
-                />
-              </span>
+              {password.length > 0 && (
+                <span
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    right: "3%",
+                    transform: "translate(-50%, -50%)",
+                    cursor: "pointer",
+                  }}
+                  onClick={handleEyeVisiblity}
+                >
+                  <Icon
+                    name={isVisible ? "eye" : "eyeOff"}
+                    className="svg-icon m-0"
+                  />
+                </span>
+              )}
             </div>
             <div className="fv-plugins-message-container mt-2 text-danger">
               {errors.password?.message}
@@ -100,21 +126,25 @@ const LoginForm = () => {
 
           <div className="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
             <div />
-            <span className="link-primary">Forgot Password ?</span>
+            {/* <span className="link-primary">Forgot Password ?</span> */}
           </div>
           <div className="d-grid mb-10">
             <button
               type="submit"
               id="kt_sign_in_submit"
               className="btn btn-primary"
+              disabled={loading}
             >
-              <span className="indicator-label" style={{ cursor: "pointer" }}>
-                Sign In
-              </span>
-              <span className="indicator-progress">
-                Please wait...
-                <span className="spinner-border spinner-border-sm align-middle ms-2" />
-              </span>
+              {loading ? (
+                <span className="indicator-spinner">
+                  Please wait...
+                  <span className="spinner-border spinner-border-sm align-middle ms-2" />
+                </span>
+              ) : (
+                <span className="indicator-label" style={{ cursor: "pointer" }}>
+                  Sign In
+                </span>
+              )}
             </button>
           </div>
         </form>

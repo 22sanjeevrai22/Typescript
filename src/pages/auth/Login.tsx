@@ -14,7 +14,7 @@ const Login = () => {
           <div
             className="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center order-1 order-lg-2"
             style={{
-              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${building})`,
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url(${building})`,
               backgroundSize: "cover", // Make sure the image covers the container
               backgroundPosition: "center", // Center the image
               height: "100svh", // Adjust height as needed
