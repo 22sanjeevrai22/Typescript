@@ -1,4 +1,4 @@
-const HOME_ROUTE = "/";
+const HOME_ROUTE = "/home";
 const STUDENTS_ROUTE = "/students";
 const EMPLOYEES_ROUTE = "/employees";
 const GRADE_ROUTE = "/grade";

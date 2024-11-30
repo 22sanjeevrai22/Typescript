@@ -21,8 +21,7 @@ const login = async ({ email, password }: User) => {
       }
     );
 
-    console.log("Token in Auth.ts", userResponse.data);
-    localStorage.setItem("authToken", userResponse.data?.token);
+    console.log("User Response in auth.ts", userResponse);
 
     return userResponse;
   } catch (error) {

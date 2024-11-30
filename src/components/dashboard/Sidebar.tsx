@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
-import logo from "../../assets/icons/logo.png";
+import logo from "../../assets/img/depotLogo.png";
 import Icon from "../icons/Icon";
 import MenuDropdown from "./dropdown/sidebar/MenuDropdown";
 import SettingDropdown from "./dropdown/sidebar/SettingDropdown";

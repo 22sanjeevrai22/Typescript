@@ -1,48 +1,32 @@
 import Icon from "../../icons/Icon";
 import { useForm } from "react-hook-form";
-import { login } from "../../../api/auth";
-import { createContext, useState } from "react";
+import { useState } from "react";
 import depotlogo from "../../../assets/img/depotlogo.png";
+import { loginThunk } from "../../../redux/auth/authActions";
+import { useAppDispatch } from "../../../redux/hooks";
 
 type LoginFormData = {
   email: string;
   password: string;
 };
 
-type LoginContext = {
-  user: string;
-  setUser: (user: string) => void;
-};
-
 const LoginForm = () => {
+  const dispatch = useAppDispatch();
   const [isVisible, setIsVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState<string | null>("");
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormData>();
 
-  // export const userContext = createContext<LoginContext | null>(null);
-
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
-  const submitLoginForm = async (data: LoginFormData) => {
-    setLoading(true);
-
-    try {
-      console.log("data in LoginForm", data);
-      const response = await login(data);
-      // setUser(response);
-    } catch (error) {
-      console.error("The error in LoginForm is:", error);
-    } finally {
-      setLoading(false);
-    }
+  const submitLoginForm = (data: LoginFormData) => {
+    dispatch(loginThunk(data));
   };
 
   const handleEyeVisiblity = () => {
