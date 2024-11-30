@@ -2,6 +2,7 @@ import Icon from "../../icons/Icon";
 import { useForm } from "react-hook-form";
 import { login } from "../../../api/auth";
 import { createContext, useState } from "react";
+import depotlogo from "../../../assets/img/depotlogo.png";
 
 type LoginFormData = {
   email: string;
@@ -24,7 +25,7 @@ const LoginForm = () => {
     formState: { errors },
   } = useForm<LoginFormData>();
 
-  export const userContext = createContext<LoginContext | null>(null);
+  // export const userContext = createContext<LoginContext | null>(null);
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -36,7 +37,7 @@ const LoginForm = () => {
     try {
       console.log("data in LoginForm", data);
       const response = await login(data);
-      setUser(response);
+      // setUser(response);
     } catch (error) {
       console.error("The error in LoginForm is:", error);
     } finally {
@@ -57,9 +58,7 @@ const LoginForm = () => {
         <form className="form w-100" id="kt_sign_in_form" action="#">
           <div className="text-center mb-11">
             <h1 className="text-dark fw-bolder mb-3">Log In</h1>
-            <div className="text-gray-500 fw-semibold fs-6">
-              Login with your Admin Account
-            </div>
+            <img alt="Logo" src={depotlogo} className="h-65px h-lg-85px" />
           </div>
 
           <div className="fv-row mb-8">
@@ -99,7 +98,7 @@ const LoginForm = () => {
                   },
                 })}
                 value={password}
-                onChange={handlePasswordChange}
+                onInput={handlePasswordChange}
               />
               {password.length > 0 && (
                 <span
