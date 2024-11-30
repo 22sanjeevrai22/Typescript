@@ -4,17 +4,31 @@ import { useState } from "react";
 import depotlogo from "../../../assets/img/depotlogo.png";
 import { loginThunk } from "../../../redux/auth/authActions";
 import { useAppDispatch } from "../../../redux/hooks";
+import { useSelector } from "react-redux";
 
 type LoginFormData = {
   email: string;
   password: string;
 };
 
+type LoginResponse = {
+  token: string;
+};
+
+type AuthState = {
+  user: null | LoginResponse;
+  loading: boolean;
+  error: null | string;
+};
+type RootState = {
+  auth: AuthState;
+};
+
 const LoginForm = () => {
   const dispatch = useAppDispatch();
   const [isVisible, setIsVisible] = useState(false);
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+  const { loading } = useSelector((state: RootState) => state.auth);
   const {
     register,
     handleSubmit,

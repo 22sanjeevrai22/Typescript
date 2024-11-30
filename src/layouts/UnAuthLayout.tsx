@@ -2,12 +2,20 @@ import { Navigate, Outlet } from "react-router-dom";
 import { HOME_ROUTE } from "../constants/routes";
 import { useSelector } from "react-redux";
 
-type AuthState = {
-  user: null | {};
+type LoginResponse = {
+  token: string;
 };
+
+type AuthState = {
+  user: null | LoginResponse;
+  loading: boolean;
+  error: null | string;
+};
+
 type RootState = {
   auth: AuthState;
 };
+
 const UnAuthLayout = () => {
   const { user } = useSelector((state: RootState) => state.auth);
 

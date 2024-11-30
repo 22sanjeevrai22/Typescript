@@ -3,16 +3,29 @@ import Sidebar from "../components/dashboard/Sidebar";
 import { LOGIN_ROUTE } from "../constants/routes";
 import { useSelector } from "react-redux";
 
-type AuthState = {
-  user: null | {};
+// type AuthState = {
+//   user: null | {};
+// };
+// type RootState = {
+//   auth: AuthState;
+// };
+
+type LoginResponse = {
+  token: string;
 };
+
+type AuthState = {
+  user: null | LoginResponse;
+  loading: boolean;
+  error: null | string;
+};
+
 type RootState = {
   auth: AuthState;
 };
 
 const AuthLayout = () => {
   const { user } = useSelector((state: RootState) => state.auth);
-  // const token = localStorage.getItem("authToken");
 
   return (
     <>
