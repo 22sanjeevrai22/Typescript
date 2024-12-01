@@ -1,12 +1,32 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 type MenuItem = {
   title: string;
-  submenu?: MenuItem[];
+  prefix?: string;
   route?: string;
+  submenu?: MenuItem[];
 };
 
-const menuItems = [
+const menuItems: MenuItem[] = [
+  {
+    title: "Academic",
+    prefix: "academics",
+    submenu: [
+      { title: "Academic Levels", route: "academic-levels" },
+      { title: "Academic Sessions", route: "academic-sessions" },
+      { title: "Grade Settings", route: "grade-settings" },
+      { title: "Grades", route: "grades" },
+      {
+        title: "Routine",
+        route: "",
+        submenu: [
+          { title: "Time Table", route: "" },
+          { title: "Setup Routine", route: "" },
+        ],
+      },
+    ],
+  },
   {
     title: "Student Services",
     submenu: [
@@ -44,22 +64,7 @@ const menuItems = [
       },
     ],
   },
-  {
-    title: "Academic",
-    submenu: [
-      { title: "Academic Levels", route: "" },
-      { title: "Academic Sessions", route: "" },
-      { title: "Grades", route: "" },
-      {
-        title: "Routine",
-        route: "",
-        submenu: [
-          { title: "Time Table", route: "" },
-          { title: "Setup Routine", route: "" },
-        ],
-      },
-    ],
-  },
+
   {
     title: "Transportation",
     submenu: [
@@ -81,7 +86,6 @@ const menuItems = [
 ];
 
 const SettingDropdown = () => {
-  // State to track open menus at each level
   const [openMenu, setOpenMenu] = useState<string[]>([]);
 
   const toggleMenu = (currentIndex: string) => {
@@ -97,13 +101,18 @@ const SettingDropdown = () => {
     setOpenMenu((prev) => prev.filter((index) => index !== currentIndex));
   };
 
-  const renderMenu = (menus: MenuItem[], parentIndex: string = "") => {
+  const renderMenu = (menus: MenuItem[], parentPrefix: string = "") => {
     return (
       <>
         {menus.map((menu, index) => {
-          const currentIndex = parentIndex
-            ? `${parentIndex}-${index}`
+          const currentIndex = parentPrefix
+            ? `${parentPrefix}-${index}`
             : `${index}`;
+
+          // Update parent prefix for nested menus
+          const newParentPrefix = menu.prefix
+            ? `${parentPrefix}${menu.prefix}/`
+            : parentPrefix;
 
           return (
             <div
@@ -118,10 +127,20 @@ const SettingDropdown = () => {
                 notToggleMenu(currentIndex);
               }}
             >
-              <a href="#" className="menu-link px-3">
-                <span className="menu-title">{menu.title}</span>
-                {menu.submenu && <span className="menu-arrow" />}
-              </a>
+              {menu.route ? (
+                <Link
+                  to={`/${newParentPrefix}${menu.route}`}
+                  className="menu-link px-3"
+                >
+                  <span className="menu-title">{menu.title}</span>
+                  {menu.submenu && <span className="menu-arrow" />}
+                </Link>
+              ) : (
+                <a href="#" className="menu-link px-3">
+                  <span className="menu-title">{menu.title}</span>
+                  {menu.submenu && <span className="menu-arrow" />}
+                </a>
+              )}
 
               {/* Show child menu if this menu is clicked */}
               {menu.submenu && openMenu.includes(currentIndex) && (
@@ -135,7 +154,7 @@ const SettingDropdown = () => {
                     transition: "opacity 0.2s ease-in-out",
                   }}
                 >
-                  {renderMenu(menu.submenu, currentIndex)}{" "}
+                  {renderMenu(menu.submenu, newParentPrefix)}{" "}
                   {/* Recursive rendering */}
                 </div>
               )}
