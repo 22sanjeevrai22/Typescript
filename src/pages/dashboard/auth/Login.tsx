@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import building from "../../assets/img/building.jpg";
-import depotlogo from "../../assets/img/depotlogo.png";
-import LoginForm from "../../components/dashboard/auth/LoginForm";
-import { HOME_ROUTE } from "../../constants/routes";
+import building from "../../../assets/img/building.jpg";
+import depotlogo from "../../../assets/img/depotlogo.png";
+import LoginForm from "../../../components/dashboard/auth/LoginForm";
+import { HOME_ROUTE } from "../../../constants/routes";
 const Login = () => {
   return (
     <>

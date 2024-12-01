@@ -19,69 +19,53 @@ const menuItems: MenuItem[] = [
       { title: "Grades", route: "grades" },
       {
         title: "Routine",
-        route: "",
+        prefix: "routine",
         submenu: [
-          { title: "Time Table", route: "" },
-          { title: "Setup Routine", route: "" },
+          { title: "Time Table", route: "time-table" },
+          { title: "Setup Routine", route: "setup-routine" },
         ],
       },
     ],
   },
   {
     title: "Student Services",
+    prefix: "students",
     submenu: [
-      {
-        title: "Photographs",
-        route: "",
-      },
-      {
-        title: "Student Details",
-        route: "",
-      },
-      {
-        title: "Gate Pass",
-        route: "",
-      },
-      {
-        title: "ID Cards",
-        route: "",
-      },
+      { title: "Photographs", route: "photographs" },
+      { title: "Student Details", route: "student-details" },
+      { title: "Gate Pass", route: "gate-pass" },
+      { title: "ID Cards", route: "id-cards" },
       {
         title: "Single Print Certificate",
-        route: "",
+        prefix: "certificate",
         submenu: [
-          { title: "Transfer/Character", route: "" },
-          { title: "SEE Character", route: "" },
+          { title: "Transfer/Character", route: "transfer-character" },
+          { title: "SEE Character", route: "see-character" },
         ],
       },
       {
         title: "Bulk Print Certificate",
-        route: "",
+        prefix: "certificate",
         submenu: [
-          { title: "Transfer/Character", route: "" },
-          { title: "SEE Character", route: "" },
+          { title: "Transfer/Character", route: "bulk-transfer-character" },
+          { title: "SEE Character", route: "bulk-see-character" },
         ],
       },
     ],
   },
-
   {
     title: "Transportation",
+    prefix: "transportation",
     submenu: [
-      { title: "Vehicles", route: "" },
-      { title: "Routes", route: "" },
-      { title: "Students", route: "" },
+      { title: "Vehicles", route: "vehicles" },
+      { title: "Routes", route: "routes" },
+      { title: "Students", route: "students" },
     ],
   },
   {
     title: "IEMIS",
-    route: "",
-    submenu: [
-      {
-        title: "Export Photograph",
-        route: "",
-      },
-    ],
+    route: "iemis",
+    submenu: [{ title: "Export Photograph", route: "export-photograph" }],
   },
 ];
 
@@ -89,11 +73,10 @@ const SettingDropdown = () => {
   const [openMenu, setOpenMenu] = useState<string[]>([]);
 
   const toggleMenu = (currentIndex: string) => {
-    setOpenMenu(
-      (prev) =>
-        prev.includes(currentIndex)
-          ? prev.filter((index) => index !== currentIndex) // Close the menu
-          : [...prev, currentIndex] // Open the menu
+    setOpenMenu((prev) =>
+      prev.includes(currentIndex)
+        ? prev.filter((index) => index !== currentIndex)
+        : [...prev, currentIndex]
     );
   };
 
@@ -101,68 +84,53 @@ const SettingDropdown = () => {
     setOpenMenu((prev) => prev.filter((index) => index !== currentIndex));
   };
 
-  const renderMenu = (menus: MenuItem[], parentPrefix: string = "") => {
-    return (
-      <>
-        {menus.map((menu, index) => {
-          const currentIndex = parentPrefix
-            ? `${parentPrefix}-${index}`
-            : `${index}`;
+  const renderMenu = (
+    menus: MenuItem[],
+    basePath: string = ""
+  ): JSX.Element[] => {
+    return menus.map((menu, index) => {
+      const currentIndex = `${basePath}-${index}`;
+      const fullPath = `${basePath}/${menu.prefix || ""}/${
+        menu.route || ""
+      }`.replace(/\/+/g, "/"); // Ensure no duplicate slashes
 
-          // Update parent prefix for nested menus
-          const newParentPrefix = menu.prefix
-            ? `${parentPrefix}${menu.prefix}/`
-            : parentPrefix;
+      return (
+        <div
+          className="menu-item px-3"
+          key={currentIndex}
+          style={{ position: "relative" }}
+          onMouseEnter={() => toggleMenu(currentIndex)}
+          onMouseLeave={() => notToggleMenu(currentIndex)}
+        >
+          {menu.route || menu.submenu ? (
+            <Link to={fullPath} className="menu-link px-3">
+              <span className="menu-title">{menu.title}</span>
+              {menu.submenu && <span className="menu-arrow" />}
+            </Link>
+          ) : (
+            <a href="#" className="menu-link px-3">
+              <span className="menu-title">{menu.title}</span>
+              {menu.submenu && <span className="menu-arrow" />}
+            </a>
+          )}
 
-          return (
+          {menu.submenu && openMenu.includes(currentIndex) && (
             <div
-              className="menu-item px-3"
-              key={currentIndex}
-              style={{ position: "relative" }}
-              onMouseEnter={(e) => {
-                e.stopPropagation(); // Prevent event bubbling
-                toggleMenu(currentIndex);
-              }}
-              onMouseLeave={(e) => {
-                notToggleMenu(currentIndex);
+              className="menu-submenu-card p-3 border rounded mt-2 bg-white shadow-lg"
+              style={{
+                position: "absolute",
+                left: "100%",
+                bottom: "-30%",
+                width: "14rem",
+                transition: "opacity 0.2s ease-in-out",
               }}
             >
-              {menu.route ? (
-                <Link
-                  to={`/${newParentPrefix}${menu.route}`}
-                  className="menu-link px-3"
-                >
-                  <span className="menu-title">{menu.title}</span>
-                  {menu.submenu && <span className="menu-arrow" />}
-                </Link>
-              ) : (
-                <a href="#" className="menu-link px-3">
-                  <span className="menu-title">{menu.title}</span>
-                  {menu.submenu && <span className="menu-arrow" />}
-                </a>
-              )}
-
-              {/* Show child menu if this menu is clicked */}
-              {menu.submenu && openMenu.includes(currentIndex) && (
-                <div
-                  className="menu-submenu-card p-3 border rounded mt-2 bg-white shadow-lg"
-                  style={{
-                    position: "absolute",
-                    left: "100%",
-                    bottom: "-1rem",
-                    width: "14rem",
-                    transition: "opacity 0.2s ease-in-out",
-                  }}
-                >
-                  {renderMenu(menu.submenu, newParentPrefix)}{" "}
-                  {/* Recursive rendering */}
-                </div>
-              )}
+              {renderMenu(menu.submenu, `${basePath}/${menu.prefix || ""}`)}
             </div>
-          );
-        })}
-      </>
-    );
+          )}
+        </div>
+      );
+    });
   };
 
   return (

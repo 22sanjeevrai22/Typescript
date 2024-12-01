@@ -61,7 +61,7 @@ const LoginForm = () => {
 
           <div className="fv-row mb-8">
             <input
-              type="text"
+              type="email"
               id="email"
               placeholder="Email"
               autoComplete="none"

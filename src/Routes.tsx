@@ -12,7 +12,7 @@ import {
   STUDENTS_ROUTE,
   LOGIN_ROUTE,
 } from "./constants/routes";
-import Login from "./pages/auth/Login";
+import Login from "./pages/dashboard/auth/Login";
 import UnAuthLayout from "./layouts/UnAuthLayout";
 import AuthLayout from "./layouts/AuthLayout";
 
