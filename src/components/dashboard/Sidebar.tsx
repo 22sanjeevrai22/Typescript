@@ -13,7 +13,7 @@ type IsActiveProp = {
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false); // Track dropdown visibility umm
-  const dropdownRef = useRef<HTMLDivElement>(null); // Ref for the dropdown
+  const dropdownRef = useRef<HTMLDivElement>(null); // Ref for the dropdown umm
 
   const handleActiveLink = ({ isActive }: IsActiveProp) => {
     return ["menu-item py-2", isActive ? "here" : ""].join(" ");
