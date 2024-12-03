@@ -12,7 +12,7 @@ type IsActiveProp = {
 };
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false); // Track dropdown visibility
+  const [isOpen, setIsOpen] = useState(false); // Track dropdown visibility umm
   const dropdownRef = useRef<HTMLDivElement>(null); // Ref for the dropdown
 
   const handleActiveLink = ({ isActive }: IsActiveProp) => {
