@@ -3,13 +3,6 @@ import Sidebar from "../components/dashboard/Sidebar";
 import { LOGIN_ROUTE } from "../constants/routes";
 import { useSelector } from "react-redux";
 
-// type AuthState = {
-//   user: null | {};
-// };
-// type RootState = {
-//   auth: AuthState;
-// };
-
 type LoginResponse = {
   token: string;
 };

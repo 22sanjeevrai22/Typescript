@@ -10,6 +10,8 @@ type LoginResponse = {
   token: string;
 };
 
+const authToken = localStorage.getItem("authToken");
+
 const login = async ({
   email,
   password,
@@ -37,6 +39,23 @@ const login = async ({
   }
 };
 
-const logout = () => {};
+const logOut = async () => {
+  console.log("logOut");
+  if (!authToken) {
+    console.error("authToken is not set");
+    // throw new Error("authToken is not set");
+  }
+  const response = await axios.post(
+    `${config.baseApiUrl}/logout`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    }
+  );
+  console.log("logout response", response);
+  return response.data;
+};
 
-export { login };
+export { login, logOut };

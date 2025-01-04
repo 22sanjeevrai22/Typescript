@@ -4,14 +4,21 @@ import ProfileDropdown from "./dropdown/header/ProfileDropdown";
 import DarkLightModeDropdown from "./dropdown/header/DarkLightModeDropdown";
 import Search from "../search/Search";
 import Icon from "../icons/Icon";
+import { useDispatch } from "react-redux";
+import { logOut } from "../../api/auth";
+import { logOutThunk } from "../../redux/auth/authActions";
+import { AppDispatch } from "../../redux/store";
 type HeaderProps = {
   title: string;
   subTitle: string;
 };
 
-const handleLogout = () => {};
-
 const Header = ({ title, subTitle }: HeaderProps) => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleLogout = () => {
+    dispatch(logOutThunk());
+  };
   return (
     <>
       <div id="kt_header" className="header py-6 py-lg-0">
