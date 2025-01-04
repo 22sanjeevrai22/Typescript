@@ -20,6 +20,7 @@ type AuthState = {
   loading: boolean;
   error: null | string;
 };
+
 type RootState = {
   auth: AuthState;
 };

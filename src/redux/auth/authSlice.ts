@@ -21,7 +21,9 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
 
-  reducers: {},
+  reducers: {
+    logout: () => {},
+  },
 
   extraReducers: (builder) => {
     builder

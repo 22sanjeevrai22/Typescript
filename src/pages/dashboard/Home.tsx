@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Footer from "../../components/dashboard/Footer";
 import Header from "../../components/dashboard/Header";
 import Icon from "../../components/icons/Icon";
-import { dashboardMenu } from "../../constants/dashboardMenu";
+import { dashboardMenu } from "../../types/sidebarMenu";
 
 const Home = () => {
   return (

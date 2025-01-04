@@ -4,7 +4,7 @@ import {
   HOME_ROUTE,
   STUDENTS_ROUTE,
   GRADE_ROUTE,
-} from "./routes";
+} from "../constants/routes";
 
 type Menu = MenuItem[];
 

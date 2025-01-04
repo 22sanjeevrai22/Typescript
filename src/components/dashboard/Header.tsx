@@ -8,6 +8,9 @@ type HeaderProps = {
   title: string;
   subTitle: string;
 };
+
+const handleLogout = () => {};
+
 const Header = ({ title, subTitle }: HeaderProps) => {
   return (
     <>
@@ -61,9 +64,9 @@ const Header = ({ title, subTitle }: HeaderProps) => {
                 </a>
                 <DarkLightModeDropdown />
               </div>
-              <a href="#" className="btn btn-primary">
-                Login
-              </a>
+              <button onClick={handleLogout} className="btn btn-primary">
+                Logout
+              </button>
             </div>
           </div>
         </div>

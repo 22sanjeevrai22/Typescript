@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import config from "../config/config";
 
 type User = {
@@ -6,10 +6,17 @@ type User = {
   password: string;
 };
 
-const login = async ({ email, password }: User) => {
+type LoginResponse = {
+  token: string;
+};
+
+const login = async ({
+  email,
+  password,
+}: User): Promise<AxiosResponse<LoginResponse>> => {
   try {
-    const userResponse = await axios.post(
-      `${config.baseApiUrl}/api/login`,
+    const loginResponse = await axios.post(
+      `${config.baseApiUrl}/login`,
       {
         email,
         password,
@@ -21,13 +28,15 @@ const login = async ({ email, password }: User) => {
       }
     );
 
-    console.log("User Response in auth.ts", userResponse);
+    console.log("Login Response in auth.ts in /api", loginResponse);
 
-    return userResponse;
+    return loginResponse;
   } catch (error) {
     console.error("Error during login:", error);
     throw error;
   }
 };
+
+const logout = () => {};
 
 export { login };

@@ -5,7 +5,7 @@ import Icon from "../icons/Icon";
 import MenuDropdown from "./dropdown/sidebar/MenuDropdown";
 import SettingDropdown from "./dropdown/sidebar/SettingDropdown";
 import { HOME_ROUTE } from "../../constants/routes";
-import { sidebarMenu } from "../../constants/dashboardMenu";
+import { sidebarMenu } from "../../types/sidebarMenu";
 
 type IsActiveProp = {
   isActive: boolean;
