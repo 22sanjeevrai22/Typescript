@@ -17,7 +17,8 @@ const Header = ({ title, subTitle }: HeaderProps) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const handleLogout = () => {
-    dispatch(logOutThunk());
+    // dispatch(logOutThunk());
+    logOut();
   };
   return (
     <>

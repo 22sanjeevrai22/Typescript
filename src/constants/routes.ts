@@ -5,6 +5,7 @@ const GRADE_ROUTE = "/grade";
 const EXAMINATION_ROUTE = "/examination";
 const LOGIN_ROUTE = "/login";
 const REGISTER_ROUTE = "/register";
+const EXPORT_PHOTOGRAPH_ROUTE = "/export-photograph";
 
 export {
   HOME_ROUTE,
@@ -14,4 +15,5 @@ export {
   EXAMINATION_ROUTE,
   LOGIN_ROUTE,
   REGISTER_ROUTE,
+  EXPORT_PHOTOGRAPH_ROUTE,
 };

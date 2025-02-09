@@ -41,6 +41,7 @@ const login = async ({
 
 const logOut = async () => {
   console.log("logOut");
+  
   if (!authToken) {
     console.error("authToken is not set");
     // throw new Error("authToken is not set");
